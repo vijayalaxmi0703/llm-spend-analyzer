@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" rx="60" fill="#060b1b"/>
+  <rect x="60" y="60" width="1080" height="510" rx="40" fill="rgba(139,92,246,0.12)"/>
+  <text x="100" y="180" fill="#f8fafc" font-family="Inter, sans-serif" font-size="60" font-weight="700">Credex Audit</text>
+  <text x="100" y="260" fill="#c7d2fe" font-family="Inter, sans-serif" font-size="32">AI spend audits made for founders.</text>
+  <rect x="100" y="320" width="440" height="120" rx="28" fill="#0f172a"/>
+  <text x="130" y="390" fill="#a78bfa" font-family="Inter, sans-serif" font-size="28">$1.8k/mo saved</text>
+  <text x="100" y="470" fill="#c7d2fe" font-family="Inter, sans-serif" font-size="20">Report, recommendations, and shareable summary.</text>
+</svg>

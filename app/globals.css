@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-family: 'Inter', sans-serif;
+  background-color: #071120;
+  color: #F8F5F0;
+  --color-primary-bg: #071120;
+  --color-secondary-bg: #0B1730;
+  --color-card-bg: #10213F;
+  --color-elevated: #13284D;
+  --color-accent-primary: #D6B98C;
+  --color-accent-secondary: #C8A97E;
+  --color-accent-hover: #E6C79C;
+  --color-text-primary: #F8F5F0;
+  --color-text-muted: #A8B3C7;
+  --color-border: rgba(214,185,140,0.12);
+  --color-glow: rgba(214,185,140,0.15);
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, rgba(214,185,140,0.08), transparent 50%), #071120;
+  color: #F8F5F0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(214,185,140,0.35);
+  color: #071120;
+}
+
+button, [role="button"], a {
+  transition-property: opacity, transform, color, background-color, border-color;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in-from-bottom {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-in {
+  animation: fade-in 0.25s ease-out, slide-in-from-bottom 0.25s ease-out;
+}
+
+.fade-in {
+  animation: fade-in 0.25s ease-out;
+}
+
+.slide-in-from-bottom-2 {
+  animation: slide-in-from-bottom 0.25s ease-out;
+}

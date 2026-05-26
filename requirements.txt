@@ -1,0 +1,25 @@
+# Credex Audit — runtime requirements
+# This is a Node.js / Next.js application (not Python).
+
+# Runtime
+node>=20.0.0
+npm>=10.0.0
+
+# Core stack (see package.json for exact versions)
+# - next@15
+# - react@18
+# - typescript@5
+# - tailwindcss@3
+# - @supabase/supabase-js
+# - @anthropic-ai/sdk (optional)
+# - zod, react-hook-form
+
+# External services (configure via .env.local)
+# - Supabase (audits + leads tables)
+# - Resend (transactional email, optional)
+# - Anthropic API (executive summary, optional)
+
+# Development / QA
+# - vitest (unit tests)
+# - eslint + eslint-config-next
+# - lighthouse (manual performance audits)
