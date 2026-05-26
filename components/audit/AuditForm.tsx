@@ -216,7 +216,7 @@ export function AuditForm() {
         {errors.teamSize ? (
           <p role="alert" className="mt-1.5 text-error text-xs font-medium flex items-center gap-1">
             <AlertCircle className="h-3 w-3" />
-            {String((errors.teamSize as any)?.message ?? 'Invalid team size')}
+            {String(errors.teamSize?.message ?? 'Invalid team size')}
           </p>
         ) : null}
       </label>
@@ -336,12 +336,12 @@ export function AuditForm() {
                     min={0}
                     step={10}
                     placeholder="$0"
-                    aria-invalid={Boolean((errors.tools && (errors.tools as any)[index]?.monthlySpend))}
+                    aria-invalid={Boolean(errors.tools?.[index]?.monthlySpend)}
                   />
-                  {errors.tools && (errors.tools as any)[index]?.monthlySpend ? (
+                  {errors.tools?.[index]?.monthlySpend ? (
                     <p role="alert" className="mt-1.5 text-error text-xs font-medium flex items-center gap-1">
                       <AlertCircle className="h-3 w-3" />
-                      {String((errors.tools as any)[index].monthlySpend.message)}
+                    {String(errors.tools?.[index]?.monthlySpend?.message)}
                     </p>
                   ) : null}
                 </label>
@@ -352,12 +352,12 @@ export function AuditForm() {
                     {...form.register(`tools.${index}.seats` as const, { valueAsNumber: true })}
                     min={0}
                     placeholder="1"
-                    aria-invalid={Boolean((errors.tools && (errors.tools as any)[index]?.seats))}
+                   aria-invalid={Boolean(errors.tools?.[index]?.seats)}
                   />
-                  {errors.tools && (errors.tools as any)[index]?.seats ? (
+                 {errors.tools?.[index]?.seats ? (
                     <p role="alert" className="mt-1.5 text-error text-xs font-medium flex items-center gap-1">
                       <AlertCircle className="h-3 w-3" />
-                      {String((errors.tools as any)[index].seats.message)}
+                     {String(errors.tools?.[index]?.seats?.message)}
                     </p>
                   ) : null}
                 </label>
