@@ -23,6 +23,7 @@ import { getConversionCopy, getSavingsTier } from '@/lib/auditEngine';
 import { calculateBenchmarks } from '@/lib/benchmarks';
 import { buildTwitterShareUrl } from '@/lib/email';
 
+
 import type {
   AuditRecommendation,
   BenchmarkInsight,
@@ -93,9 +94,7 @@ export function ReportDetail({
     if (typeof window === 'undefined') return;
 
     setReportUrl(shareUrl ?? window.location.href);
-    setSavedEmail(
-      window.localStorage.getItem('credex-lead-email') ?? ''
-    );
+    setSavedEmail(window.localStorage.getItem('credex-lead-email') ?? '');
   }, [fallbackReportId, report, shareUrl]);
 
   useEffect(() => {
@@ -239,13 +238,15 @@ export function ReportDetail({
   );
 
   const handleShareByEmail = useCallback(() => {
+    if (!reportToShow) return;
+
     if (savedEmail) {
       void sendShareEmail(savedEmail);
       return;
     }
 
     openModal('share');
-  }, [savedEmail, openModal, sendShareEmail]);
+  }, [savedEmail, openModal, sendShareEmail, reportToShow]);
 
   const handleNativeShare = useCallback(async () => {
     if (
@@ -387,6 +388,11 @@ export function ReportDetail({
                 </ul>
               </div>
             )}
+            {fallbackReportId?.startsWith('local-') && (
+              <div className="mt-6 text-xs text-center text-text-muted">
+                Note: This audit was generated locally. Share links for `local-...` IDs only work in the same browser session. Configure Supabase to enable cross-device sharing.
+              </div>
+            )}
           </div>
         </div>
       </main>
@@ -402,6 +408,10 @@ export function ReportDetail({
             <h1 className="mt-2 text-2xl font-bold text-text-primary">Audit results</h1>
           </div>
           <div className="flex items-center gap-3">
+            <Button variant="ghost" size="sm" onClick={() => void handleShareByEmail()}>
+              <Mail className="mr-2 h-4 w-4" /> Email
+            </Button>
+
             <Button variant="ghost" size="sm" onClick={() => void copyLink()}>
               <ClipboardCopy className="mr-2 h-4 w-4" /> Copy link
             </Button>
