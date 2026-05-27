@@ -395,7 +395,102 @@ export function ReportDetail({
 
   return (
     <main className="min-h-screen bg-primary-bg px-4 py-10 sm:px-8 sm:py-14">
-      {/* Rest of your component remains unchanged */}
+      <div className="mx-auto max-w-6xl space-y-8">
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col">
+            <p className="text-xs uppercase tracking-widest text-accent-primary">Shareable audit</p>
+            <h1 className="mt-2 text-2xl font-bold text-text-primary">Audit results</h1>
+          </div>
+          <div className="flex items-center gap-3">
+            <Button variant="ghost" size="sm" onClick={() => void copyLink()}>
+              <ClipboardCopy className="mr-2 h-4 w-4" /> Copy link
+            </Button>
+            <Button variant="secondary" size="sm" onClick={() => handleNativeShare()}>
+              <Share2 className="mr-2 h-4 w-4" /> Share
+            </Button>
+          </div>
+        </div>
+
+        <ReportHero
+          annualSavings={annualSavings}
+          totalMonthly={reportToShow.total_monthly}
+          totalSavings={reportToShow.total_savings}
+          efficiencyScore={reportToShow.efficiency_score}
+          benchmarks={benchmarks}
+        />
+
+        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="space-y-6">
+            <Card className="p-6">
+              <h2 className="text-lg font-semibold text-text-primary">Executive summary</h2>
+              <p className="mt-3 text-sm text-text-muted whitespace-pre-line">{reportToShow.summary_text}</p>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-md font-semibold text-text-primary">Recommendations</h3>
+              <div className="mt-4 space-y-3">
+                {reportToShow.recommendations && reportToShow.recommendations.length ? (
+                  reportToShow.recommendations.map((rec, idx) => (
+                    <div key={rec.id ?? idx} className="rounded-md border border-accent-primary/10 p-4">
+                      <p className="font-medium text-text-primary">{rec.recommendedAction}</p>
+                      <p className="mt-1 text-sm text-text-muted">{rec.reason}</p>
+                      <p className="mt-2 text-xs text-text-muted">Estimated savings: ${rec.monthlySavings.toFixed(0)}/mo</p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-sm text-text-muted">No recommendations available.</p>
+                )}
+              </div>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-md font-semibold text-text-primary">Tool breakdown</h3>
+              <div className="mt-4 space-y-4">
+                {toolBreakdowns.length ? (
+                  toolBreakdowns.map((tb) => (
+                    <ToolBreakdownCard key={tb.toolKey + tb.plan} breakdown={tb} />
+                  ))
+                ) : (
+                  <p className="text-sm text-text-muted">No tool breakdowns available.</p>
+                )}
+              </div>
+            </Card>
+          </div>
+
+          <aside className="space-y-6">
+            <Card className="p-6">
+              <h4 className="text-sm font-semibold text-text-primary">Conversion copy</h4>
+              <p className="mt-3 text-sm text-text-muted">{conversion?.headline}</p>
+            </Card>
+
+            <Card className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs text-text-muted">Audit ID</p>
+                  <p className="font-mono mt-1 text-sm text-text-primary">{reportToShow.id}</p>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Button size="sm" onClick={() => retrySummary()} disabled={summaryLoading}>
+                    <RefreshCw className="mr-2 h-4 w-4" /> Refresh summary
+                  </Button>
+                  <Button size="sm" variant="outline" onClick={() => openModal('consultation')}>
+                    Request help
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </aside>
+        </div>
+
+        <LeadCaptureModal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          intent={modalIntent}
+          reportId={reportToShow.id}
+          totalSavings={reportToShow.total_savings}
+          defaultEmail={savedEmail}
+        />
+      </div>
     </main>
   );
 }

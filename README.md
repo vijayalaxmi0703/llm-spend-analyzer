@@ -34,6 +34,8 @@ Open [http://localhost:3000](http://localhost:3000)
 | `RESEND_API_KEY` | Optional | Transactional email |
 | `RESEND_FROM_ADDRESS` | Optional | Verified sender domain |
 
+Note: Without `SUPABASE_SERVICE_ROLE_KEY` the app will still generate audits but they are saved only to your browser `localStorage` (IDs prefixed with `local-`). Shareable public pages across devices require a configured Supabase project.
+
 ## Supabase schema
 
 Run in the Supabase SQL editor:
@@ -102,6 +104,14 @@ npm run lint       # ESLint
 npm run typecheck  # TypeScript
 npm test           # Vitest (audit engine)
 ```
+
+## Troubleshooting
+
+- Blank page after generating an audit: ensure you're using the same browser session that created the audit if Supabase is not configured (local-only IDs start with `local-`). If Supabase is configured and you still see a blank page, check server logs for errors and verify `SUPABASE_SERVICE_ROLE_KEY` is set in the environment used by the Next server.
+- AI summary missing: Anthropic requests time out after 4s — a deterministic summary is always available as a fallback.
+- Rate limit errors: the app enforces 12 audit requests / minute per IP.
+
+If you want me to run the app or the test suite in this workspace, tell me and I'll run the relevant commands and share any errors.
 
 ## Performance notes
 
